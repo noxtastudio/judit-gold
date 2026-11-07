@@ -43,17 +43,7 @@
   } });
   ready.then(function () { fill.eventCallback('onComplete', intro); if (fill.progress() === 1) intro(); });
 
-  // The giant word always spans 94% of the viewport, whatever the screen.
-  var giantEl = document.querySelector('.giant');
-  function fitGiant() {
-    giantEl.style.fontSize = '';
-    giantEl.style.fontSize = parseFloat(getComputedStyle(giantEl).fontSize) * innerWidth * .94 / giantEl.offsetWidth + 'px';
-  }
-  var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fitGiant, 150); });
-
   function intro() {
-    fitGiant();
-    var giant = SplitText.create('.giant', { type: 'chars', mask: 'chars', charsClass: 'ch' });
     var h1 = SplitText.create('.hero h1', { type: 'lines', mask: 'lines', linesClass: 'ln' });
     var lede = SplitText.create('.hero .lede', { type: 'lines', mask: 'lines', linesClass: 'ln' });
     var rClosed = desktop ? 'inset(18% 30% 26% 30% round 200px 200px 0px 0px)' : 'inset(20% 18% 28% 18% round 120px 120px 0px 0px)';
@@ -61,7 +51,6 @@
     var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: function () { if (lenis) lenis.start(); } });
     tl.to(loader, { yPercent: -100, duration: 1.1, ease: 'power3.inOut' }, 0)
       .set(loader, { display: 'none' })
-      .from(giant.chars, { yPercent: 110, duration: 1.3, stagger: .06, ease: 'power3.out' }, .45)
       .fromTo('.arch', { clipPath: rClosed }, { clipPath: rOpen, duration: 1.5, ease: 'power3.inOut' }, .55)
       .fromTo('.arch img', { scale: 1.25 }, { scale: 1, duration: 1.9, ease: 'power3.out' }, .55)
       .from('.hero .eyebrow', { autoAlpha: 0, y: 12, duration: .7 }, .9)
@@ -75,8 +64,7 @@
   }
 
   function scrollMotion() {
-    // Hero depth: the giant word drifts up slower than the page, the arch sinks a touch, the dust thins out.
-    gsap.to('.giant', { yPercent: -28, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+    // Hero depth: the arch sinks a touch as you scroll and the dust thins out.
     gsap.to('.arch img', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to('.dust', { autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: '40% top', end: 'bottom top', scrub: true } });
 
