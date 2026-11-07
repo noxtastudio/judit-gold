@@ -60,9 +60,21 @@ h1 em, h2 em { color: var(--gold); }
 .hero h1 { margin-bottom: 22px; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 34px; }
 .hero-photo { position: relative; }
-.hero-photo img { border-radius: 260px 260px var(--r) var(--r); aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; width: 100%; box-shadow: 0 40px 80px -40px rgba(80, 55, 25, .45); }
+.hero-photo { filter: drop-shadow(0 30px 40px rgba(80, 55, 25, .22)); }
+.hero-arch { overflow: hidden; border-radius: 260px 260px var(--r) var(--r); clip-path: inset(0 round 260px 260px var(--r) var(--r)); animation: arch-open 1.5s var(--ease) both; }
+.hero-arch img { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; width: 100%; animation: arch-settle 1.9s var(--ease) both; }
+.hero-ear { position: absolute; left: -46px; bottom: -34px; width: 36%; padding: 7px; background: var(--ivory); border-radius: 18px; box-shadow: 0 22px 40px -22px rgba(60, 40, 20, .55); animation: pop-in .9s var(--ease) .9s both; }
+.hero-ear img { border-radius: 12px; aspect-ratio: 1; object-fit: cover; width: 100%; }
+.hero-badge { position: absolute; top: 8%; right: -40px; width: clamp(96px, 10vw, 128px); height: auto; overflow: visible; border-radius: 50%; background: var(--ivory); box-shadow: 0 16px 30px -18px rgba(60, 40, 20, .5); animation: pop-in .9s var(--ease) 1.15s both; }
+.hero-badge text { font-family: var(--sans); font-size: 9.5px; font-weight: 600; fill: #A9792C; stroke: none; }
+.hero-badge .badge-mark { font-family: var(--script); font-size: 42px; font-weight: 400; fill: #A9792C; }
+.badge-spin { transform-origin: 60px 60px; animation: spin 26s linear infinite; }
+@keyframes arch-open { from { clip-path: inset(46% 22% 0 22% round 260px 260px var(--r) var(--r)); } }
+@keyframes arch-settle { from { transform: scale(1.22); } }
+@keyframes pop-in { from { opacity: 0; transform: translateY(22px) scale(.94); } }
+@keyframes spin { to { transform: rotate(360deg); } }
 .hero-photo::before { content: ""; position: absolute; inset: -14px -14px auto auto; width: 70%; height: 70%; border: 1.5px solid var(--gold-soft); border-radius: 260px 260px var(--r) var(--r); z-index: -1; }
-.hero-photo figcaption { position: absolute; left: -18px; bottom: 28px; background: var(--ivory); padding: 12px 20px 10px; border-radius: 16px; box-shadow: 0 16px 30px -18px rgba(60, 40, 20, .45); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: baseline; gap: 10px; }
+.hero-photo figcaption { position: absolute; right: -22px; bottom: 30px; animation: pop-in .9s var(--ease) 1.3s both; background: var(--ivory); padding: 12px 20px 10px; border-radius: 16px; box-shadow: 0 16px 30px -18px rgba(60, 40, 20, .45); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: baseline; gap: 10px; }
 .trust { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .trust li { display: flex; align-items: center; gap: 12px; font-size: 15.5px; color: var(--muted); }
 .trust svg { color: var(--gold); width: 22px; height: 22px; }
@@ -165,8 +177,10 @@ address { font-style: normal; font-size: 17.5px; line-height: 1.6; }
   .nav { display: none; }
   .top .btn-small { margin-left: auto; }
   .hero { grid-template-columns: 1fr; }
-  .hero-photo { order: -1; max-width: 420px; margin: 0 auto; width: 88%; }
-  .hero-photo figcaption { left: -10px; }
+  .hero-photo { order: -1; max-width: 420px; margin: 0 auto 26px; width: 88%; }
+  .hero-photo figcaption { display: none; }   /* phones: the ear card + badge are enough; Rólam introduces Judit */
+  .hero-ear { left: -14px; bottom: -22px; width: 34%; padding: 5px; }
+  .hero-badge { right: -14px; top: 4%; width: 84px; }
   .services { grid-template-columns: 1fr; }
   .service-feature { flex-direction: column; }
   .service-feature img { width: 100%; aspect-ratio: 4 / 3.4; }
