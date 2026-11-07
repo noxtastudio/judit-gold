@@ -98,15 +98,8 @@
         onUpdate: function () { b.textContent = hu.format(n.v) + ' Ft'; } });
     });
 
-    // Gallery: on desktop the strip is pinned and scrolls sideways; on phones it's a plain grid.
-    if (desktop) {
-      var track = document.querySelector('.gallery-track');
-      gsap.to(track, { x: function () { return -(track.scrollWidth - innerWidth); }, ease: 'none',
-        scrollTrigger: { trigger: '.gallery-wrap', start: 'center center', end: function () { return '+=' + (track.scrollWidth - innerWidth); }, pin: true, scrub: .6, invalidateOnRefresh: true, anticipatePin: 1 } });
-      gsap.from('.gallery-track img', { autoAlpha: 0, y: 30, duration: .9, stagger: .06, scrollTrigger: { trigger: '.gallery-wrap', start: 'top 70%', once: true } });
-    } else {
-      gsap.from('.gallery-track img', { autoAlpha: 0, y: 24, duration: .8, stagger: .08, scrollTrigger: { trigger: '.gallery-track', start: 'top 85%', once: true } });
-    }
+    // Gallery: the tiles rise in one after another.
+    gsap.from('.gallery-track img', { autoAlpha: 0, y: 24, duration: .8, stagger: .07, scrollTrigger: { trigger: '.gallery-track', start: 'top 85%', once: true } });
 
     // About: the quote lights up word by word as it scrolls into view; the photo frame draws.
     var q = SplitText.create('.about-quote p', { type: 'words', wordsClass: 'w' });
