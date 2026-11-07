@@ -262,7 +262,7 @@
   // load animations (those use `transform`). Off for reduced motion; touch scrolling stays native.
   if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var lenis = new Lenis({ lerp: 0.085, anchors: { offset: -84 }, autoRaf: true });
-    var layers = [['.hero-arch', 0.05], ['.hero-ear', -0.12], ['.hero-badge', -0.2], ['.about-photo img', -0.06]]
+    var layers = (innerWidth > 900 ? [['.hero-arch', 0.04], ['.hero-ear', 0.1], ['.hero-badge', 0.16], ['.about-photo img', -0.06]] : [])   // layers rise as you scroll (never sink into the next section); phones: none
       .map(function (l) { var el = document.querySelector(l[0]); return el && { el: el, box: el.closest('figure'), k: l[1] }; })
       .filter(Boolean);
     var drift = function () {
