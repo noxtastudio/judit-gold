@@ -54,7 +54,8 @@
     var lede = SplitText.create('.hero .lede', { type: 'lines', mask: 'lines', linesClass: 'ln' });
     var rClosed = desktop ? 'inset(18% 30% 26% 30% round 200px 200px 0px 0px)' : 'inset(20% 18% 28% 18% round 120px 120px 0px 0px)';
     var rOpen = 'inset(0% 0% 0% 0% round 260px 260px 6px 6px)';
-    var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: function () { if (lenis) lenis.start(); } });
+    // Once the lines have risen, put the original text back: the line masks clip the descenders (g, j, y).
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: function () { h1.revert(); lede.revert(); if (lenis) lenis.start(); } });
     tl.to(loader, { yPercent: -100, duration: 1.1, ease: 'power3.inOut' }, 0)
       .set(loader, { display: 'none' })
       .fromTo('.arch', { clipPath: rClosed }, { clipPath: rOpen, duration: 1.5, ease: 'power3.inOut' }, .55)
