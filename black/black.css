@@ -88,9 +88,10 @@ html.no-motion .loader { display: none; }
 
 /* marquee */
 .marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; background: var(--coal); }
-.marquee-track { display: flex; align-items: baseline; gap: 44px; width: max-content; animation: marquee 40s linear infinite; }
+.marquee-track { display: flex; align-items: center; gap: 40px; width: max-content; animation: marquee 40s linear infinite; }
 .marquee-track span { font: italic 500 clamp(22px, 2.4vw, 32px)/1 var(--serif); color: var(--cream); white-space: nowrap; }
-.marquee-track i { font: 400 clamp(26px, 2.8vw, 38px)/1 var(--script); color: var(--gold); }
+.mq-mark { width: 30px; height: 30px; stroke: var(--gold); stroke-width: 2.4; fill: none; }   /* the tab icon: a J in a gold ring */
+.mq-mark text { fill: var(--gold); stroke: none; font: 500 36px/1 var(--serif); }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 /* sections */
