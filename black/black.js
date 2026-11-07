@@ -42,8 +42,14 @@
     count.textContent = Math.round(progress.v); line.style.setProperty('--p', progress.v / 100);
   } });
   ready.then(function () { fill.eventCallback('onComplete', intro); if (fill.progress() === 1) intro(); });
+  // Whatever happens (a script that didn't load, an error in the intro), the page must never stay behind the loader.
+  function unblock() { gsap.set(loader, { display: 'none' }); if (lenis) lenis.start(); }
+  setTimeout(function () { if (getComputedStyle(loader).display !== 'none') unblock(); }, 6000);
 
   function intro() {
+    try { introMotion(); } catch (e) { unblock(); scrollMotion(); throw e; }
+  }
+  function introMotion() {
     var h1 = SplitText.create('.hero h1', { type: 'lines', mask: 'lines', linesClass: 'ln' });
     var lede = SplitText.create('.hero .lede', { type: 'lines', mask: 'lines', linesClass: 'ln' });
     var rClosed = desktop ? 'inset(18% 30% 26% 30% round 200px 200px 0px 0px)' : 'inset(20% 18% 28% 18% round 120px 120px 0px 0px)';
